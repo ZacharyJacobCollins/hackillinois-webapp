@@ -18,8 +18,8 @@ import spray.http.StatusCodes._
 import spray.httpx.Json4sSupport
 
 object Config {
-  val clientId = "dpfeqa7l7jc8om"
-  val clientSecret = "fp7m8v8cvh4ev9unof4ds8fb3d"
+  val clientId = ""
+  val clientSecret = ""
   val host = "localhost"
   val port = 18888
   val callbackUrl = s"http://$host:$port/authenticate"
@@ -33,7 +33,7 @@ object Login extends App {
   val service = system.actorOf(Props[LoginService], "login-service")
 
   implicit val timeout = Timeout(5.seconds)
-  IO(Http) ? Http.Bind(service, interface = Config.host, port = Config.port)
+  IO(Http) ? Http.Bind(service, interface = "0.0.0.0", port = Config.port)
 }
 
 class LoginService extends HttpServiceActor with ActorLogging {
